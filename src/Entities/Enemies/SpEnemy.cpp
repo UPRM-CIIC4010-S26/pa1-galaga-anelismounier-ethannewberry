@@ -1,4 +1,5 @@
 #include "SpEnemy.hpp"
+#include "SpEnemy.hpp"
 
 
 void SpEnemy::draw() {

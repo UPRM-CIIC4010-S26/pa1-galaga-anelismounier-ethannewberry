@@ -19,7 +19,10 @@ class Program {
         int delay = 0;
         int lives = 3;
         int pauseFrames = 0;
-
+        //phase 2 variables
+        int score = 0;
+        int lastLifeMilestone = 0;
+        
         bool startup = true;
         bool paused = false;
         bool gameOver = false;

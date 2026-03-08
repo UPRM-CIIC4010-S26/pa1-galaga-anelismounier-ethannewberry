@@ -1,4 +1,4 @@
-#include "Program.hpp"
+#include "Program.hpp"  
 
 Program::Program() {
     Background::sideWalls = std::pair<HitBox, HitBox>{ 
@@ -17,8 +17,8 @@ Program::Program() {
         });
 
     for (int i = 0; i < 30; i++) {
-        float x = 250 + 50 * (i % 10);
-        float y = 200 + 50 * (i / 10);
+        float x = 250 + 50 * (i % 10);  //Reset every 10 enemies
+        float y = 200 + 50 * (i / 10);  //Increase y every 10 enemies
 
         Enemy::enemies.push_back(std::pair<std::pair<float, float>, Enemy*> {
             std::pair<float, float>{x, y}, 
@@ -35,10 +35,22 @@ void Program::Update() {
     pauseFrames = std::max(pauseFrames - 1, 0);
 
     if (!startup && !paused && !gameOver && pauseFrames <= 0) {
-        Enemy::ManageEnemies(player->hitBox);
+        Enemy::ManageEnemies(player->hitBox , score);
         StdEnemy::attackReset();
         ManageEnemyRespawns();
         player->update();
+
+        //Add life after 1000 score
+        int currentMilestone = score / 1000; 
+        if (currentMilestone > lastLifeMilestone) {
+            if (lives < 5) { // Cap at 5 lives 
+                lives++;
+            }
+            lastLifeMilestone = currentMilestone;
+        }
+
+        //respawnCooldown reduces faster as score increases
+        respawnCooldown -= (1 + (score / 2000));
 
         for (std::pair<std::pair<float, float>, Enemy*> p : Enemy::enemies) {
             if (p.second && HitBox::Collision(player->hitBox, p.second->hitBox)) {
@@ -62,7 +74,7 @@ void Program::Update() {
 
         for (Projectile& p : Projectile::projectiles) {
 
-
+            //Enemy projectiles colliding with player fix
             if (p.ID != 0 && HitBox::Collision(player->hitBox, p.getHitBox())) {
                 PlayerReset();
             }
@@ -81,6 +93,9 @@ void Program::Draw() {
     background.Draw();
     if (pauseFrames <= 0 && !gameOver) player->draw();
     for (Animation& a : Animation::animations) a.draw();
+
+    //Display score
+    DrawText(TextFormat("SCORE: %04d", score), 20, 20, 30, RED);
 
     for (int i = 0; i < lives; i++) {
          DrawTexturePro(ImageManager::SpriteSheet, Rectangle{0, 0, 17, 18}, 
@@ -164,6 +179,11 @@ void Program::KeyInputs() {
     if (!gameOver && !paused && IsKeyPressed('I')) startup = !startup;
     if (IsKeyPressed('H')) HitBox::drawHitbox = !HitBox::drawHitbox;
     
+    //Increase score by 500 when 'K' is pressed
+    if (!startup && !paused && !gameOver && IsKeyPressed('K')) {
+        score += 500;
+    }
+
     if (gameOver && IsKeyPressed(KEY_ENTER)) {
         gameOver = false;
         Reset();
@@ -199,6 +219,11 @@ void Program::Reset() {
     delay = 0;
     lives = 3;
 
+    //Reset score when game starts over
+    score = 0;
+    lastLifeMilestone = 0;
+
+    //Re-add enemies to the game
     for (int i = 0; i < 30; i++) {
         float x = 250 + 50 * (i % 10);
         float y = 200 + 50 * (i / 10);
