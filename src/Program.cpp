@@ -97,6 +97,17 @@ void Program::Draw() {
     //Display score
     DrawText(TextFormat("SCORE: %04d", score), 20, 20, 30, RED);
 
+
+    //Add life counter
+    for (int i = 0; i < lives; i++) {
+       
+        
+        DrawTexturePro(ImageManager::SpriteSheet, 
+                       Rectangle{199, 147, 13, 13}, 
+                       Rectangle{10.0f + i * 30, (float)GetScreenHeight() - 35.0f, 25, 25}, 
+                       Vector2{0, 0}, 0, PINK); 
+    }
+
     for (int i = 0; i < lives; i++) {
          DrawTexturePro(ImageManager::SpriteSheet, Rectangle{0, 0, 17, 18}, 
                    Rectangle{10.0f + i * 30, GetScreenHeight() - 30.0f, 20, 20}, 

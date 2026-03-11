@@ -3,7 +3,9 @@
 #include "Math.hpp"
 #include "ImageManager.hpp"
 #include "Animation.hpp"
+#include "SoundManager.hpp" //Added SoundManager so enemy class can access sound triggers
 #include <iostream>
+
 
 class Enemy {
     protected:
@@ -57,6 +59,11 @@ class Enemy {
                         if (p2.ID != 1 && HitBox::Collision(p.second->hitBox, p2.getHitBox())) {
                             p.second->health--;
                             p2.del = true;
+
+                            //Play hit sound if the enemy survives the shot
+                            if (p.second->health > 0) {
+                                PlaySound(SoundManager::hit);
+                            }
                         }
                     }
 
@@ -64,6 +71,8 @@ class Enemy {
                         //Award points for each enemy type
                         score += p.second->getScore();
                        
+                        //Play death sound when enemy is destroyed
+                        PlaySound(SoundManager::dead);
 
 
                         Animation::animations.push_back(
