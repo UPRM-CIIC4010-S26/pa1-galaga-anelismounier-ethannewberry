@@ -103,8 +103,8 @@ void Program::Draw() {
        
         
         DrawTexturePro(ImageManager::SpriteSheet, 
-                       Rectangle{199, 147, 13, 13}, 
-                       Rectangle{10.0f + i * 30, (float)GetScreenHeight() - 35.0f, 25, 25}, 
+                       Rectangle{109, 73, 13, 13}, //Added a life counter
+                       Rectangle{20.0f + i * 30, (float)GetScreenHeight() - 60.0f, 25, 25},
                        Vector2{0, 0}, 0, PINK); 
     }
 

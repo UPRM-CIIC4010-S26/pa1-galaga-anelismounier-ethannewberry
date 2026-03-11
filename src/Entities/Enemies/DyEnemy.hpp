@@ -16,9 +16,9 @@ class DyEnemy : public Enemy {
 
             //Randomly assign one of two textures
              if (GetRandomValue(0, 1) == 0) {
-                this->sourceRectangle = Rectangle{161, 103, 13, 13}; 
+                this->sourceRectangle = Rectangle{36, 68, 13, 14}; //Blue-Yellow ships
             } else {
-                this->sourceRectangle = Rectangle{2, 147, 13, 13};   
+                this->sourceRectangle = Rectangle{52, 100, 13, 14};  //Pink-Red ships
             }
         }
         
