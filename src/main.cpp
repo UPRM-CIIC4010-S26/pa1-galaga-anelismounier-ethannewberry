@@ -1,5 +1,5 @@
 #include "raylib.h"
-
+#include "utilities/SoundManager.hpp"
 #include "resource_dir.h"
 #include "Program.hpp"
 
@@ -19,6 +19,9 @@ int main ()
     return 1;
 }
 
+
+
+
 	while (!WindowShouldClose()) {
 		BeginDrawing();
 		ClearBackground(BLACK);
@@ -28,6 +31,9 @@ int main ()
 		Galaga.KeyInputs();
 
 		EndDrawing();
+
+		if (!IsSoundPlaying(SoundManager::backgroundMusic))
+		{ PlaySound(SoundManager::backgroundMusic);}
 	}
 
 	ImageManager::Unload();
