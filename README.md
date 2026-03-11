@@ -12,7 +12,7 @@ Don't forget that you must also fill out an evaluation form in Moodle to conside
 ## Grading
 
 802-24-1480 Ethan P. R. Newberry Torres ethan.newberry@upr.edu
-(STUDENT NUMBER HERE) (STUDENT NAME HERE) (STUDENT EMAIL HERE)
+802-24-5070 Anelis M. Mounier Lorenzo anelis.mounier@upr.edu
 
 Any project that doesn't compile will receive a 0.
 
@@ -23,3 +23,4 @@ If a partner has no commits in the repositories, they will receive a 0.
 ## Student Notes
 
 Bonus: Added Background Music. Line 35-36 of main.cpp and soundmanager utilities.
+        Added a life counter. 
